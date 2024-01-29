@@ -1,0 +1,23 @@
+name: Wechat Dest Version Mac
+
+on:
+  schedule:
+    - cron: '0 8 * * *'
+  workflow_dispatch:
+    inputs:
+      download_link:
+        description: 'The manual WechatSetup.exe download link'
+        required: false
+        default: 'https://dldir1.qq.com/weixin/mac/WeChatMac.dmg'
+
+jobs:
+  save_new_wechat:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      # - name: Test Github Action Server Time
+      #   run: echo `date`
+      - name: Check new version and push
+        env: 
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: bash -x ./scripts/destVersionForMac.sh ${{ github.event.inputs.download_link }}
