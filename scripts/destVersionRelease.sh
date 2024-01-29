@@ -48,7 +48,7 @@ function download_wechat() {
     printf "#%.0s" {1..60}
     echo 
 
-    wget "$download_link" -O ${temp_path}/WeChatSetup.exe
+    wget -q "$download_link" -O ${temp_path}/WeChatSetup.exe
     if [ "$?" -ne 0 ]; then
         >&2 echo -e "\033[1;31mDownload Failed, please check your network!\033[0m"
         clean_data 1
@@ -112,6 +112,7 @@ function main() {
 
     now_sum256=`shasum -a 256 ${temp_path}/WeChatSetup.exe | awk '{print $1}'`
     local latest_sum256=`gh release view  --json body --jq ".body" | awk '/Sha256/{ print $2 }'`
+    local latest_version=`gh release view  --json body --jq ".body" | awk '/DestVersion/{ print $2 }'`
 
     if [ "$now_sum256" = "$latest_sum256" ]; then
         >&2 echo -e "\n\033[1;32mThis is the newest Version!\033[0m\n"
@@ -120,6 +121,12 @@ function main() {
     ## if not the newest
     extract_version
     prepare_commit
+    if [ "$dest_version" = "$latest_version" ]; then
+        version="$dest_version"_`date -u '+%Y%m%d'`
+        echo -e $dest_version
+    else
+        version="$dest_version"
+    fi
 
     gh release create v$dest_version ./WeChatSetup/$dest_version/WeChatSetup-$dest_version.exe -F ./WeChatSetup/$dest_version/WeChatSetup-$dest_version.exe.sha256 -t "Wechat v$dest_version"
 
