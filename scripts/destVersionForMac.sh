@@ -19,7 +19,6 @@ function install_depends() {
     echo 
 
     apt install -y p7zip-full p7zip-rar libdigest-sha-perl wget curl git
-    pip install lxml request
 }
 
 function login_gh() {
