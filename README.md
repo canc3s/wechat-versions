@@ -1,5 +1,5 @@
 # wechat-windows-versions
-收集 Windows 微信版本并保存
+收集 Windows 和 Mac 微信版本并保存
 
 相关项目: 
 * [Mac微信收集](https://github.com/zsbai/wechat-versions)
