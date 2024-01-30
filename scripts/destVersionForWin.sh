@@ -85,7 +85,7 @@ function main() {
     download_wechat
 
     now_sum256=`shasum -a 256 ${temp_path}/WeChatSetup.exe | awk '{print $1}'`
-    local latest_release_version=$(gh release list | grep '_win_' | head -n 1 | awk '{print $4}')
+    local latest_release_version=$(gh release list | grep '_win_' | head -n 1 | awk '{print $2}')
     local latest_sum256=`gh release view $latest_release_version --json body --jq ".body" | awk '/Sha256/{ print $2 }'`
     local latest_version=`gh release view $latest_release_version --json body --jq ".body" | awk '/DestVersion/{ print $2 }'`
 
@@ -99,9 +99,7 @@ function main() {
 
     version="${dest_version}_win_$(date -u '+%Y%m%d')"
 
-    gh release create "v$version" ./WeChatSetup/$dest_version/WeChatSetup-$dest_version.exe -F ./WeChatSetup/$dest_version/WeChatSetup-$dest_version.exe.sha256 -t "Wechat For Windows v$version"
-
-    gh auth logout --hostname github.com | echo "y"
+    gh release create "v$version" ./WeChatSetup/$dest_version/WeChatSetup-$dest_version.exe -F ./WeChatSetup/$dest_version/WeChatSetup-$dest_version.exe.sha256 -t "Wechat v$version"
 
     clean_data 0
 }

@@ -81,7 +81,7 @@ function main() {
     download_wechat
 
     now_sum256=`shasum -a 256 ${temp_path}/WeChatMac.dmg | awk '{print $1}'`
-    local latest_release_version=$(gh release list | grep '_mac_' | head -n 1 | awk '{print $4}')
+    local latest_release_version=$(gh release list | grep '_mac_' | head -n 1 | awk '{print $2}')
     local latest_sum256=`gh release view $latest_release_version --json body --jq ".body" | awk '/Sha256/{ print $2 }'`
     local latest_version=`gh release view $latest_release_version --json body --jq ".body" | awk '/DestVersion/{ print $2 }'`
     
@@ -95,9 +95,7 @@ function main() {
     # if dest_version is the same as latest_version
     version="${dest_version}_mac_$(date -u '+%Y%m%d')"
     
-    gh release create v$version ./WeChatMac/$dest_version/WeChatMac-$dest_version.dmg -F ./WeChatMac/$dest_version/WeChatMac-$dest_version.dmg.sha256 -t "Wechat For Mac v$version"
-
-    gh auth logout --hostname github.com | echo "y"
+    gh release create v$version ./WeChatMac/$dest_version/WeChatMac-$dest_version.dmg -F ./WeChatMac/$dest_version/WeChatMac-$dest_version.dmg.sha256 -t "Wechat v$version"
 
     clean_data 0
 }
