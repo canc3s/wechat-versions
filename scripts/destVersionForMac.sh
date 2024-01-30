@@ -21,26 +21,6 @@ function install_depends() {
     apt install -y p7zip-full p7zip-rar libdigest-sha-perl wget curl git
 }
 
-function login_gh() {
-    printf "#%.0s" {1..60}
-    echo 
-    echo -e "## \033[1;33mLogin to github to use github-cli...\033[0m"
-    printf "#%.0s" {1..60}
-    echo 
-    if [ -z $GHTOKEN ]; then
-        >&2 echo -e "\033[1;31mMissing Github Token! Please get a BotToken from 'Github Settings->Developer settings->Personal access tokens' and set it in Repo Secrect\033[0m"
-        exit 1
-    fi
-
-    echo $GHTOKEN > WeChatMac/temp/GHTOKEN
-    gh auth login --with-token < WeChatMac/temp/GHTOKEN
-    if [ "$?" -ne 0 ]; then
-        >&2 echo -e "\033[1;31mLogin Failed, please check your network or token!\033[0m"
-        clean_data 1
-    fi
-    rm -rfv WeChatMac/temp/GHTOKEN
-}
-
 function download_wechat() {
     printf "#%.0s" {1..60}
     echo 
@@ -104,6 +84,7 @@ function main() {
     local latest_release_version=$(gh release list | grep '_mac_' | head -n 1 | awk '{print $4}')
     local latest_sum256=`gh release view $latest_release_version --json body --jq ".body" | awk '/Sha256/{ print $2 }'`
     local latest_version=`gh release view $latest_release_version --json body --jq ".body" | awk '/DestVersion/{ print $2 }'`
+    
     if [ "$now_sum256" = "$latest_sum256" ]; then
         >&2 echo -e "\n\033[1;32mThis is the newest Version!\033[0m\n"
         clean_data 0
