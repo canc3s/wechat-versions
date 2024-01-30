@@ -28,7 +28,7 @@ function download_wechat() {
     printf "#%.0s" {1..60}
     echo 
 
-    wget "$download_link" -O ${temp_path}/WeChatMac.dmg
+    wget -q "$download_link" -O ${temp_path}/WeChatMac.dmg
     if [ "$?" -ne 0 ]; then
         >&2 echo -e "\033[1;31mDownload Failed, please check your network!\033[0m"
         clean_data 1
