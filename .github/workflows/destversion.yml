@@ -13,6 +13,8 @@ on:
 jobs:
   save_new_wechat:
     runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ github.token }}
     steps:
       - uses: actions/checkout@v2
       - name: Check Win new version and push
