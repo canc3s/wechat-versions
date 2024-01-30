@@ -18,10 +18,6 @@ jobs:
       # - name: Test Github Action Server Time
       #   run: echo `date`
       - name: Check Win new version and push
-        env: 
-          GHTOKEN: ${{ secrets.GHTOKEN }}
         run: bash -x ./scripts/destVersionForWin.sh ${{ github.event.inputs.download_link }}‘
       - name: Check Mac new version and push
-        env: 
-          GHTOKEN: ${{ secrets.GHTOKEN }}
         run: bash -x ./scripts/destVersionForMac.sh ${{ github.event.inputs.download_link }}
