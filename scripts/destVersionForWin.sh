@@ -111,8 +111,9 @@ function main() {
     download_wechat
 
     now_sum256=`shasum -a 256 ${temp_path}/WeChatSetup.exe | awk '{print $1}'`
-    local latest_sum256=`gh release view  --json body --jq ".body" | awk '/Sha256/{ print $2 }'`
-    local latest_version=`gh release view  --json body --jq ".body" | awk '/DestVersion/{ print $2 }'`
+    local latest_release_version=$(gh release list | grep '_win_' | head -n 1 | awk '{print $4}')
+    local latest_sum256=`gh release view $latest_release_version --json body --jq ".body" | awk '/Sha256/{ print $2 }'`
+    local latest_version=`gh release view $latest_release_version --json body --jq ".body" | awk '/DestVersion/{ print $2 }'`
 
     if [ "$now_sum256" = "$latest_sum256" ]; then
         >&2 echo -e "\n\033[1;32mThis is the newest Version!\033[0m\n"
@@ -121,14 +122,10 @@ function main() {
     ## if not the newest
     extract_version
     prepare_commit
-    if [ "$dest_version" = "$latest_version" ]; then
-        version="$dest_version"_`date -u '+%Y%m%d'`
-        echo -e $dest_version
-    else
-        version="$dest_version"
-    fi
 
-    gh release create v$dest_version ./WeChatSetup/$dest_version/WeChatSetup-$dest_version.exe -F ./WeChatSetup/$dest_version/WeChatSetup-$dest_version.exe.sha256 -t "Wechat v$version"
+    version="${dest_version}_win_$(date -u '+%Y%m%d')"
+
+    gh release create "v$version" ./WeChatSetup/$dest_version/WeChatSetup-$dest_version.exe -F ./WeChatSetup/$dest_version/WeChatSetup-$dest_version.exe.sha256 -t "Wechat For Windows v$version"
 
     gh auth logout --hostname github.com | echo "y"
 
