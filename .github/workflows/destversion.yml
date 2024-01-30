@@ -8,16 +8,14 @@ on:
       download_link:
         description: 'The manual WechatSetup.exe download link'
         required: false
-        default: 'https://dldir1.qq.com/weixin/Windows/WeChatSetup.exe'
+        default: ''
 
 jobs:
   save_new_wechat:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      # - name: Test Github Action Server Time
-      #   run: echo `date`
       - name: Check Win new version and push
-        run: bash -x ./scripts/destVersionForWin.sh ${{ github.event.inputs.download_link }}‘
+        run: bash -x ./scripts/destVersionForWin.sh ${{ github.event.inputs.download_link }}
       - name: Check Mac new version and push
         run: bash -x ./scripts/destVersionForMac.sh ${{ github.event.inputs.download_link }}
