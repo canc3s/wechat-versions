@@ -37,7 +37,7 @@ function download_wechat() {
 
 function get_version() {
     local url="https://mac.weixin.qq.com/?t=mac&lang=zh_CN"
-    local user_agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36"
+    local user_agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 15_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.2.1 Safari/605.1.15"
     local page_content=$(curl -s -A "$user_agent" "$url")
     
     dest_version=$(echo "$page_content" | grep -oP '<p>\K[\d\.]+(?=</p></div>)' | head -n 1)
