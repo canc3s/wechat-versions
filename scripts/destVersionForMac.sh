@@ -40,7 +40,7 @@ function get_version() {
     local user_agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36"
     local page_content=$(curl -s -A "$user_agent" "$url")
     
-    dest_version=$(echo "$page_content" | grep -oP '<p class="download-text-desc">\K[^<]+' | head -n 1)
+    dest_version=$(echo "$page_content" | grep -oP '<p>\K[\d\.]+(?=</p></div>)' | head -n 1)
 }
 
 
