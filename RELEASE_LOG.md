@@ -41,6 +41,7 @@ This file tracks the collected WeChat versions for Windows, Mac, and Android.
 
 | Date | Version | Hash (SHA256) | Download |
 | :--- | :--- | :--- | :--- |
+| 2026-09-04 | **4.1.13.60** | `0ecf1cc7` | [Release](https://github.com/canc3s/wechat-versions/releases/tag/v4.1.13.60-mac) |
 | 2026-09-03 | **4.1.13.59** | `e39cebb4` | [Release](https://github.com/canc3s/wechat-versions/releases/tag/v4.1.13.59-mac) |
 | 2026-08-22 | **4.1.13.11** | `8ac5734e` | [Release](https://github.com/canc3s/wechat-versions/releases/tag/v4.1.13.11-mac) |
 | 2026-08-21 | **4.1.13.10** | `92404803` | [Release](https://github.com/canc3s/wechat-versions/releases/tag/v4.1.13.10-mac) |
