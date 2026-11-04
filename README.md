@@ -69,6 +69,12 @@
 
 ---
 
+## 🔗 友链
+
+- [capcut-versions](https://github.com/canc3s/capcut-versions) — 剪映 / CapCut 多平台离线完整安装包归档
+
+---
+
 ## 📄 许可证
 
 本项目基于 MIT License 开源。

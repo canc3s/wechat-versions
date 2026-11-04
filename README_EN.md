@@ -80,6 +80,12 @@ If you encounter redundant releases, use the cleanup tool:
 
 ---
 
+## 🔗 Related Projects
+
+- [capcut-versions](https://github.com/canc3s/capcut-versions) — archive of Jianying and CapCut installers for Windows, macOS and Android
+
+---
+
 ## 📄 License
 
 This project is licensed under the MIT License.
