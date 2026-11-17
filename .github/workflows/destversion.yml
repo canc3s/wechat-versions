@@ -35,7 +35,7 @@ permissions:
 
 jobs:
   save_new_wechat:
-    runs-on: macos-14
+    runs-on: macos-15
     env:
       GH_TOKEN: ${{ github.token }}
       HOMEBREW_NO_AUTO_UPDATE: 1  # 避免每次都更新 Homebrew
